@@ -1,0 +1,45 @@
+<!-- municipio.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Planos para {{ municipio }}</title>
+</head>
+<body>
+    <h1>Planos para {{ municipio }}</h1>
+
+    {% if planos %}
+        <ul>
+        {% for plano in planos %}
+            <li>
+                <h2>{{ plano.nome }}</h2>
+                <p><strong>Categoria:</strong> {{ plano.categoria }}</p>
+                <p><strong>Início do prazo:</strong> {{ plano.inicio_prazo }}</p>
+                <p><strong>Fim do prazo:</strong> {{ plano.final_prazo }}</p>
+                <p><strong>Introdução:</strong> {{ plano.introducao }}</p>
+                <!-- Adicione aqui outros campos conforme necessário -->
+                <!-- Exemplo de como exibir os tópicos associados ao plano -->
+                {% if plano.topico_set.all %}
+                    <h3>Tópicos:</h3>
+                    <ul>
+                        {% for topico in plano.topico_set.all %}
+                            <li>
+                                <h4>{{ topico.subtitulo }}</h4>
+                                <p>{{ topico.texto }}</p>
+                                <!-- Adicione outros campos do tópico conforme necessário -->
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Nenhum plano encontrado para {{ municipio }}.</p>
+    {% endif %}
+
+    <a href="{% url 'criar_plano' municipio=municipio %}">Criar Novo Plano</a>
+    <a href="{% url 'register' %}">Cadastrar</a>
+    <a href="{% url 'login' %}">Login</a>
+</body>
+</html>

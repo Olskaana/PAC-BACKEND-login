@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Criar Plano para {{ municipio }}</title>
+    <script>
+        function addForm() {
+            console.log("Adding new form...");
+            var formset = document.getElementById('formset');
+            console.log("Formset:", formset);
+            var newForm = formset.firstElementChild.cloneNode(true);
+            console.log("New form:", newForm);
+            var totalForms = document.getElementById('id_topico_set-TOTAL_FORMS');
+            var formCount = parseInt(totalForms.value);
+            console.log("Total forms:", formCount);
+            totalForms.value = formCount + 1;
+            var regex = new RegExp(`topico_set-(\\d){1}-`, 'g');
+            newForm.innerHTML = newForm.innerHTML.replace(regex, `topico_set-${formCount}-`);
+            newForm.style.display = 'block'; // Ensure the new form is visible
+
+            // Adicionar campos de subtitulo, texto e imagem ao novo formulário
+            var subtituloInput = document.createElement('input');
+            subtituloInput.type = 'text';
+            subtituloInput.name = `topico_set-${formCount}-subtitulo`;
+            subtituloInput.id = `id_topico_set-${formCount}-subtitulo`;
+            var subtituloLabel = document.createElement('label');
+            subtituloLabel.for = `id_topico_set-${formCount}-subtitulo`;
+            subtituloLabel.textContent = 'Subtitulo:';
+            var textoTextarea = document.createElement('textarea');
+            textoTextarea.name = `topico_set-${formCount}-texto`;
+            textoTextarea.id = `id_topico_set-${formCount}-texto`;
+            var textoLabel = document.createElement('label');
+            textoLabel.for = `id_topico_set-${formCount}-texto`;
+            textoLabel.textContent = 'Texto:';
+            var imagemInput = document.createElement('input');
+            imagemInput.type = 'file';
+            imagemInput.name = `topico_set-${formCount}-imagem`;
+            imagemInput.id = `id_topico_set-${formCount}-imagem`;
+            var imagemLabel = document.createElement('label');
+            imagemLabel.for = `id_topico_set-${formCount}-imagem`;
+            imagemLabel.textContent = 'Imagem:';
+            var deleteImageButton = document.createElement('button');
+            deleteImageButton.type = 'button';
+            deleteImageButton.textContent = 'Excluir';
+            deleteImageButton.addEventListener('click', function() {
+                imagemInput.value = ''; // Limpar o valor do campo de upload de imagem
+            });
+
+            newForm.appendChild(subtituloLabel);
+            newForm.appendChild(subtituloInput);
+            newForm.appendChild(document.createElement('br'));
+            newForm.appendChild(textoLabel);
+            newForm.appendChild(textoTextarea);
+            newForm.appendChild(document.createElement('br'));
+            newForm.appendChild(imagemLabel);
+            newForm.appendChild(imagemInput);
+            newForm.appendChild(deleteImageButton);
+
+            formset.appendChild(newForm);
+            console.log("New form added.");
+        }
+
+        window.onload = function() {
+            var totalForms = document.getElementById('id_topico_set-TOTAL_FORMS');
+            var formCount = parseInt(totalForms.value);
+            if (formCount === 0) {
+                addForm(); // Ensure there is at least one form initially
+            }
+        };
+    </script>
+    <style>
+        .form-inline {
+            display: none; /* Initially hide the forms */
+        }
+    </style>
+</head>
+<body>
+    <h1>Criar Plano para {{ municipio }}</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div id="formset">
+            {{ formset.management_form }}
+            {% for form in formset %}
+                <div class="form-inline">
+                    {{ form.as_p }}
+                </div>
+            {% endfor %}
+        </div>
+        <button type="button" onclick="addForm()">Adicionar Novo Tópico</button>
+        <button type="submit">Salvar</button>
+    </form>
+</body>
+</html>
