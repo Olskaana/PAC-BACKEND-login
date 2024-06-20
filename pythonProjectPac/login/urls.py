@@ -6,6 +6,6 @@ from plano.views import index
 urlpatterns = [
     path('register/', register_view, name='register'),
     path('login/', login_view, name='login'),
-    path('success/', login_success, name='success'),
+    path('success', login_success, name='success'),
     path('', index, name='index'),
 ]

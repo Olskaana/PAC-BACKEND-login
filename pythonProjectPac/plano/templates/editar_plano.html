@@ -2,20 +2,20 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Criar Plano</title>
+    <title>Editar Plano: {{ plano.nome }}</title>
 </head>
 <body>
-    <h1>Criar Plano</h1>
-    <form action="/{{ municipio }}/criar-plano/" method="post" enctype="multipart/form-data">
+    <h1>Editar Plano: {{ plano.nome }}</h1>
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
 
-        <!-- Formulário principal -->
+        <!-- Formulário principal do Plano -->
         <fieldset>
             <legend>Informações do Plano</legend>
             {{ form.as_p }}
         </fieldset>
 
-        <!-- Formset para tópicos -->
+        <!-- Formset para Tópicos -->
         <fieldset>
             <legend>Tópicos</legend>
             {{ formset_topico.management_form }}
@@ -23,11 +23,12 @@
                 <fieldset>
                     <legend>Tópico {{ forloop.counter }}</legend>
                     {{ form.as_p }}
+                    <input type="hidden" name="topico-{{ forloop.counter0 }}-plano" value="{{ plano.id }}">
                 </fieldset>
             {% endfor %}
         </fieldset>
 
-        <!-- Formset para informações adicionais -->
+        <!-- Formset para Informações Adicionais -->
         <fieldset>
             <legend>Informações Adicionais</legend>
             {{ formset_adicional.management_form }}
@@ -35,11 +36,12 @@
                 <fieldset>
                     <legend>Informação Adicional {{ forloop.counter }}</legend>
                     {{ form.as_p }}
+                    <input type="hidden" name="adicional-{{ forloop.counter0 }}-plano" value="{{ plano.id }}">
                 </fieldset>
             {% endfor %}
         </fieldset>
 
-        <!-- Formset para ações -->
+        <!-- Formset para Ações -->
         <fieldset>
             <legend>Ações</legend>
             {{ formset_acao.management_form }}
@@ -47,11 +49,12 @@
                 <fieldset>
                     <legend>Ação {{ forloop.counter }}</legend>
                     {{ form.as_p }}
+                    <input type="hidden" name="acao-{{ forloop.counter0 }}-plano" value="{{ plano.id }}">
                 </fieldset>
             {% endfor %}
         </fieldset>
 
-        <!-- Formset para biblioteca -->
+        <!-- Formset para Biblioteca -->
         <fieldset>
             <legend>Biblioteca</legend>
             {{ formset_biblioteca.management_form }}
@@ -59,11 +62,14 @@
                 <fieldset>
                     <legend>Arquivo da Biblioteca {{ forloop.counter }}</legend>
                     {{ form.as_p }}
+                    <input type="hidden" name="biblioteca-{{ forloop.counter0 }}-plano" value="{{ plano.id }}">
                 </fieldset>
             {% endfor %}
         </fieldset>
 
-        <button type="submit">Adicionar Plano</button>
+        <button type="submit">Salvar Mudanças</button>
     </form>
+
+    <a href="{% url 'plano_detail' municipio=municipio id_plano=plano.id %}">Cancelar</a>
 </body>
 </html>

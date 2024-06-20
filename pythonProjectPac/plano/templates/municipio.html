@@ -1,5 +1,3 @@
-<!-- municipio.html -->
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,20 +15,9 @@
                 <p><strong>Início do prazo:</strong> {{ plano.inicio_prazo }}</p>
                 <p><strong>Fim do prazo:</strong> {{ plano.final_prazo }}</p>
                 <p><strong>Introdução:</strong> {{ plano.introducao }}</p>
-                <!-- Adicione aqui outros campos conforme necessário -->
-                <!-- Exemplo de como exibir os tópicos associados ao plano -->
-                {% if plano.topico_set.all %}
-                    <h3>Tópicos:</h3>
-                    <ul>
-                        {% for topico in plano.topico_set.all %}
-                            <li>
-                                <h4>{{ topico.subtitulo }}</h4>
-                                <p>{{ topico.texto }}</p>
-                                <!-- Adicione outros campos do tópico conforme necessário -->
-                            </li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
+
+                <!-- Botão Leia mais -->
+                <a href="{% url 'plano_detail' municipio=municipio id_plano=plano.pk %}" class="btn btn-primary">Leia mais</a>
             </li>
         {% endfor %}
         </ul>

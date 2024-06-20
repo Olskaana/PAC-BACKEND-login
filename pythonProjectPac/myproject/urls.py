@@ -30,5 +30,5 @@ urlpatterns = [
     path('plano/', include('plano.urls')),
     path('', plano_views.index, name='index'),
     path('<str:municipio>/', plano_views.municipio, name='municipio'),
-    path('<str:municipio>/criar-plano/', criar_plano, name='criar_plano'),
+    path('<str:municipio>/criar-plano/', plano_views.criar_plano, name='criar_plano'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
