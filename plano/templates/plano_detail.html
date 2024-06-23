@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detalhes do Plano: {{ plano.nome }}</title>
+</head>
+<body>
+    <h1>Detalhes do Plano: {{ plano.nome }}</h1>
+
+    <p><strong>Categoria:</strong> {{ plano.categoria }}</p>
+    <p><strong>Início do prazo:</strong> {{ plano.inicio_prazo }}</p>
+    <p><strong>Fim do prazo:</strong> {{ plano.final_prazo }}</p>
+    <p><strong>Introdução:</strong> {{ plano.introducao }}</p>
+
+     <!-- Exibir Tópicos -->
+                {% if plano.topico_set.all %}
+                    <h3>Tópicos:</h3>
+                    <ul>
+                        {% for topico in plano.topico_set.all %}
+                            <li>
+                                <h4>{{ topico.subtitulo }}</h4>
+                                <p>{{ topico.texto }}</p>
+                                {% if topico.imagem %}
+                                    <img src="{{ topico.imagem.url }}" alt="Imagem do Tópico" style="max-width: 200px;">
+                                {% endif %}
+                                {% if topico.arquivo_pdf %}
+                                    <p><a href="{{ topico.arquivo_pdf.url }}">Baixar PDF</a></p>
+                                {% endif %}
+
+                                <!-- Exibir Adicionais do Tópico -->
+                                {% if plano.adicional_set.all %}
+                                    {% for adicional in plano.adicional_set.all %}
+                                 <h4>Informações Adicionais</h4>
+                                    <p>{{ adicional.subtitulo_adicional }}</p>
+                                    <p>{{ adicional.texto_adicional }}</p>
+                                    {% if adicional.imagem_adicional %}
+                                        <img src="{{ adicional.imagem_adicional.url }}" alt="Imagem Adicional" style="max-width: 200px;">
+                                    {% endif %}
+                                    {% if adicional.arquivo_pdf_adicional %}
+                                        <p><a href="{{ adicional.arquivo_pdf_adicional.url }}">Baixar PDF Adicional</a></p>
+                                    {% endif %}
+                                    {% endfor %}
+
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                <!-- Exibir Ações -->
+                {% if plano.acao_set.all %}
+                    <h3>Ações:</h3>
+                    <ul>
+                        {% for acao in plano.acao_set.all %}
+                            <li>
+                                <h4>{{ acao.titulo_acao }}</h4>
+                                <p><strong>Categoria:</strong> {{ acao.categoria_acao }}</p>
+                                <p>{{ acao.descricao_acao }}</p>
+                                <p><strong>Início do prazo:</strong> {{ acao.inicio_prazo_acao }}</p>
+                                <p><strong>Fim do prazo:</strong> {{ acao.final_prazo_acao }}</p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                <!-- Exibir Biblioteca -->
+                {% if plano.biblioteca_set.all %}
+                    <h3>Biblioteca:</h3>
+                    <ul>
+                        {% for biblioteca in plano.biblioteca_set.all %}
+                            <li>
+                                {% if biblioteca.arquivo_biblioteca %}
+                                    <p><a href="{{ biblioteca.arquivo_biblioteca.url }}">Baixar Arquivo</a></p>
+                                {% endif %}
+                                {% if biblioteca.imagem_biblioteca %}
+                                    <img src="{{ biblioteca.imagem_biblioteca.url }}" alt="Imagem da Biblioteca" style="max-width: 200px;">
+                                {% endif %}
+                                <p><a href="{{ biblioteca.url_biblioteca }}" target="_blank">Visitar URL</a></p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+              </li>
+        </ul>
+
+    <a href="{% url 'excluir_plano' municipio=municipio id_plano=plano.id %}">Excluir Plano</a>
+
+    <!-- Voltar para a página de município -->
+    <a href="{% url 'municipio' municipio=municipio %}">Voltar para {{ municipio }}</a>
+
+</body>
+</html>

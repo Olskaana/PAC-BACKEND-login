@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Confirmar Exclusão do Plano: {{ plano.nome }}</title>
+</head>
+<body>
+    <h1>Confirmar Exclusão do Plano: {{ plano.nome }}</h1>
+    <p>Tem certeza que deseja excluir o plano "{{ plano.nome }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Sim, Excluir</button>
+        <a href="{% url 'plano_detail' municipio=municipio id_plano=plano.id %}">Cancelar</a>
+    </form>
+</body>
+</html>

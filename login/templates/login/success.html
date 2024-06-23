@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Sucesso</title>
+</head>
+<body>
+    <h2>Login bem-sucedido!</h2>
+    <p>Seja bem vindo à {{ entidade }}!</p>
+    <p>Seu email registrado é: {{ email }}</p>
+
+    <a href="{% url 'index' %}">Página de início</a>
+    <a href="{% url 'update_user' %}">Atualizar informações</a>
+    <a href="{% url 'delete_user' %}">Deletar conta</a>
+
+</body>
+</html>
