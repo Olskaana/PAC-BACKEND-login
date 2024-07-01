@@ -5,6 +5,7 @@ class Plano(models.Model):
         ('rio', 'Rio'),
         ('infraestrutura', 'Infraestrutura'),
         ('meio_ambiente', 'Meio Ambiente'),
+        ('educacao', 'Educação'),
         ('hidro', 'Hidro'),
     ]
 
