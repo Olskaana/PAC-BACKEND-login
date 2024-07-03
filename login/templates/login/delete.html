@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete User</title>
+</head>
+<body>
+    <h1>Confirmar delete da conta?</h1>
+    <p>Tens certeza que queres excluir sua conta? Essa ação não pode ser voltada atrás.</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Deletar conta</button>
+    </form>
+    <a href="{% url 'home.jsx' %}">Cancela</a>
+</body>
+</html>
