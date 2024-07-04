@@ -6,7 +6,6 @@ from plano.models import Plano, Topico, Adicional, Acao, Biblioteca
 
 @pytest.fixture
 def db_setup(django_db_setup):
-    # Configuração do banco de dados
     User.objects.create_user(username='testuser', password='12345')
 
 @pytest.fixture
@@ -51,15 +50,11 @@ def biblioteca_form_data():
 
 @pytest.fixture
 def arquivo_biblioteca():
-    # Implemente aqui a criação de um arquivo simulado para testes
-    # Exemplo:
     from django.core.files.uploadedfile import SimpleUploadedFile
     return SimpleUploadedFile("livro.pdf", b"conteudo do arquivo", content_type="application/pdf")
 
 @pytest.fixture
 def imagem_biblioteca():
-    # Implemente aqui a criação de uma imagem simulada para testes
-    # Exemplo:
     from django.core.files.uploadedfile import SimpleUploadedFile
     return SimpleUploadedFile("imagem.jpg", b"conteudo da imagem", content_type="image/jpeg")
 
