@@ -87,7 +87,7 @@ class TestAcaoModel:
             final_prazo_acao=timezone.now().date() + timezone.timedelta(days=10)
         )
         assert acao.titulo_acao == "Título Ação Teste"
-        assert str(acao) == "Título Ação Teste"  # Test __str__ method
+        assert str(acao) == "Título Ação Teste"
 
 @pytest.mark.django_db
 class TestBibliotecaModel:
@@ -99,7 +99,7 @@ class TestBibliotecaModel:
             url_biblioteca="http://teste.com"
         )
         assert biblioteca.url_biblioteca == "http://teste.com"
-        assert str(biblioteca) == "arquivo_teste.pdf"  # Test __str__ method
+        assert str(biblioteca) == "arquivo_teste.pdf"
 
 @pytest.fixture
 def plano(db):
