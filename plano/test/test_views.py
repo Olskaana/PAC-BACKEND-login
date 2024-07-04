@@ -40,7 +40,6 @@ def test_plano_detail_view(client):
     user = User.objects.create_user(username='testuser', password='password')
     client.login(username='testuser', password='password')
 
-    # Criando um plano para testar a visualização detalhada
     plano = mixer.blend('plano.Plano', nome='Plano Detalhado', municipio='seu_municipio',
                         final_prazo=timezone.now().date() + timezone.timedelta(days=30))
 
@@ -61,23 +60,21 @@ def test_criar_plano_view(client):
 
     response = client.get(url)
     assert response.status_code == 200
-
-    # Simulando um POST válido
+    
     data = {
         'nome': 'Novo Plano',
         'final_prazo': (timezone.now() + timezone.timedelta(days=30)).strftime('%Y-%m-%d'),
         # Incluir outros campos do formulário aqui conforme necessário
     }
     response = client.post(url, data)
-    assert response.status_code == 302  # Redirecionamento após criação bem sucedida
-    assert Plano.objects.filter(nome='Novo Plano').exists()  # Verificar se o plano foi criado no banco de dados
+    assert response.status_code == 302 
+    assert Plano.objects.filter(nome='Novo Plano').exists()
     
 @pytest.mark.django_db
 def test_excluir_plano_view(client):
     user = User.objects.create_user(username='testuser', password='password')
     client.login(username='testuser', password='password')
 
-    # Criando um plano para testar a exclusão
     plano = mixer.blend('plano.Plano', nome='Plano para Excluir', municipio='seu_municipio')
 
     url = reverse('excluir_plano', kwargs={'municipio': plano.municipio, 'id_plano': plano.id})
@@ -85,17 +82,15 @@ def test_excluir_plano_view(client):
 
     assert response.status_code == 200
 
-    # Simulando um POST para confirmar a exclusão
     response = client.post(url)
-    assert response.status_code == 302  # Redirecionamento após exclusão bem sucedida
-    assert not Plano.objects.filter(id=plano.id).exists()  # Verificar se o plano foi excluído do banco de dados
+    assert response.status_code == 302
+    assert not Plano.objects.filter(id=plano.id).exists()
     
 @pytest.mark.django_db
 def test_editar_plano_view(client):
     user = User.objects.create_user(username='testuser', password='password')
     client.login(username='testuser', password='password')
 
-    # Criando um plano para testar a edição
     plano = mixer.blend('plano.Plano', nome='Plano Editado', municipio='seu_municipio')
 
     url = reverse('editar_plano', kwargs={'municipio': plano.municipio, 'id_plano': plano.id})
@@ -103,16 +98,14 @@ def test_editar_plano_view(client):
 
     assert response.status_code == 200
 
-    # Simulando um POST válido para editar o plano
     data = {
         'nome': 'Plano Editado',
         'final_prazo': (timezone.now() + timezone.timedelta(days=30)).strftime('%Y-%m-%d'),
-        # Incluir outros campos do formulário aqui conforme necessário
     }
     response = client.post(url, data)
-    assert response.status_code == 200  # Redirecionamento após edição bem sucedida
+    assert response.status_code == 200
     plano.refresh_from_db()
-    assert plano.nome == 'Plano Editado'  # Verificar se o plano foi editado no banco de dados
+    assert plano.nome == 'Plano Editado'
     
 @pytest.mark.django_db
 class TestPlanoModel:
