@@ -9,7 +9,7 @@ class TestTopicoForm:
     @pytest.fixture
     def topico_form_data(self):
         return {
-            'plano': None,  # Inserir o ID do plano aqui se necessário
+            'plano': None,
             'subtitulo': 'Subtítulo do Tópico',
             'texto': 'Texto do Tópico'
         }
@@ -70,7 +70,6 @@ class TestAdicionalForm:
         })
         assert form.is_valid(), f"Formulário inválido: {form.errors.as_data()}"
 
-        # Exemplo de verificação adicional (opcional)
         assert form.cleaned_data['subtitulo_adicional'] == adicional_form_data['subtitulo_adicional']
         assert form.cleaned_data['texto_adicional'] == adicional_form_data['texto_adicional']
         
