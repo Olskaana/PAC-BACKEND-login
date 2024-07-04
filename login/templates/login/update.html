@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Atualizar</title>
+</head>
+<body>
+    <h1>Atualizar detalhes do usuário</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Atualizar</button>
+    </form>
+    {% if success %}
+    <p>Seus dados foram atualizados com sucesso.</p>
+    {% endif %}
+    <a href="{% url 'index' %}">Cancelar</a>
+    <a href="{% url 'delete_user' %}">Deletar conta</a>
+    <a href="{% url 'index' %}">Página inicial</a>
+</body>
+</html>

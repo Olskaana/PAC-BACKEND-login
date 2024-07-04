@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Você já está logado(a)</title>
+</head>
+<body>
+    <h2>Você já está logado!</h2>
+    <p>Entidade: {{ entidade }}</p>
+    <p>Email: {{ email }}</p>
+    <a href="{% url 'index' %}">Página inicial</a>
+    <a href="{% url 'update_user' %}">Atualizar informações</a>
+    <a href="{% url 'delete_user' %}">Deletar conta</a>
+    <a href="{% url 'logout' %}">Sair</a>
+</body>
+</html>
